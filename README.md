@@ -1,11 +1,3 @@
-``` SQL
-SELECT `Acteur`.`Prenom_Acteur`
-FROM `Acteur`;
-```
-
-
-
-
 
 les titres et dates de sortie des films du plus récent au plus ancien V
 
