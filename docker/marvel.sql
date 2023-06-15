@@ -1,0 +1,81 @@
+DROP TABLE IF EXISTS Utilisateur;
+CREATE TABLE Utilisateur (
+    ID_Utilisateur BIGINT AUTO_INCREMENT NOT NULL,
+    Nom_Utilisateur VARCHAR(255),
+    Mot_de_passe_Utilisateur VARCHAR(255),
+    Date_Creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Date_Modification DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID_Utilisateur)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Films;
+CREATE TABLE Films (
+    ID_Films BIGINT AUTO_INCREMENT NOT NULL,
+    Nom_Films VARCHAR(255),
+    Acteur_Films VARCHAR(255),
+    Realisateur_Films VARCHAR(255),
+    Date_Creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Date_Modification DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID_Films)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Acteur;
+CREATE TABLE Acteur (
+    ID_Acteur BIGINT AUTO_INCREMENT NOT NULL,
+    Prenom_Acteur VARCHAR(255),
+    Nom_Acteur VARCHAR(255),
+    Role_Acteur VARCHAR(255),
+    Film_Acteur VARCHAR(255),
+    Date_Creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Date_Modification DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID_Acteur)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Realisateur;
+CREATE TABLE Realisateur (
+    ID_Realisateur BIGINT AUTO_INCREMENT NOT NULL,
+    Prenom_Realisateur VARCHAR(255),
+    Nom_Realisateur VARCHAR(255),
+    Film_Realisateur VARCHAR(255),
+    Date_Creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Date_Modification DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID_Realisateur)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Serveur;
+CREATE TABLE Serveur (
+    ID_Utilisateur BIGINT AUTO_INCREMENT NOT NULL,
+    ID_Utilisateur_Serveur BIGINT,
+    PRIMARY KEY (ID_Utilisateur),
+    FOREIGN KEY (ID_Utilisateur) REFERENCES Utilisateur (ID_Utilisateur)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Recherche_Films;
+CREATE TABLE Recherche_Films (
+    ID_Utilisateur BIGINT AUTO_INCREMENT NOT NULL,
+    ID_Films BIGINT NOT NULL,
+    Date_Creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID_Utilisateur, ID_Films),
+    FOREIGN KEY (ID_Utilisateur) REFERENCES Utilisateur (ID_Utilisateur),
+    FOREIGN KEY (ID_Films) REFERENCES Films (ID_Films)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Recherche_Acteur;
+CREATE TABLE Recherche_Acteur (
+    ID_Films BIGINT AUTO_INCREMENT NOT NULL,
+    ID_Acteur BIGINT NOT NULL,
+    Date_Creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID_Films, ID_Acteur),
+    FOREIGN KEY (ID_Films) REFERENCES Films (ID_Films),
+    FOREIGN KEY (ID_Acteur) REFERENCES Acteur (ID_Acteur)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Recherche_Realisateur;
+CREATE TABLE Recherche_Realisateur (
+    ID_Films BIGINT AUTO_INCREMENT NOT NULL,
+    ID_Realisateur BIGINT NOT NULL,
+    Date_Creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID_Films, ID_Realisateur),
+    FOREIGN KEY (ID_Films) REFERENCES Films (ID_Films),
+    FOREIGN KEY (ID_Realisateur) REFERENCES Realisateur (ID_Realisateur)
+) ENGINE=InnoDB;
